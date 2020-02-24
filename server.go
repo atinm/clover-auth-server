@@ -29,7 +29,9 @@ func fetchTokenReq(w http.ResponseWriter, r *http.Request) {
 	}
 
 	queryParameters := "?client_id=" + config.ClientID + "&client_secret=" + config.ClientSecret + "&code=" + code[0]
-	resp, err := http.Get(TokenURL() + queryParameters)
+	url := TokenURL() + queryParameters
+	log.Printf("[DEBUG] calling %s\n", url)
+	resp, err := http.Get(url)
 	if err != nil {
 		log.Printf("[ERROR] Request failed: %v", err)
 		http.Error(w, "Couldn't fetch token", http.StatusBadRequest)
