@@ -18,13 +18,7 @@
 			"revision": ""
 		},
 		{
-			"checksumSHA1": "sPT0RQ0wtEM1EfzqLC4OODFC9pc=",
-			"path": "github.com/atinm/spotify",
-			"revision": "60d16e8b321261f7f5c8828a56e4433babfd6431",
-			"revisionTime": "2017-08-26T11:49:15Z"
-		},
-		{
-			"path": "github.com/atinm/spotify-auth-server",
+			"path": "github.com/atinm/clover-auth-server",
 			"revision": ""
 		},
 		{
@@ -116,5 +110,5 @@
 			"revisionTime": "2017-08-01T18:31:37Z"
 		}
 	],
-	"rootPath": "github.com/atinm/spotify-auth-server"
+	"rootPath": "github.com/atinm/clover-auth-server"
 }
