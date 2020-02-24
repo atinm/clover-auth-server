@@ -1,0 +1,6 @@
+config.json
+clover-auth-server
+*.pem
+*~
+vendor/*/*
+.env
