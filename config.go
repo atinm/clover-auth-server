@@ -12,7 +12,6 @@ type Config struct {
 	Ignored         []string          `json:"ignored"`
 	ClientID        string            `json:"client_id"`
 	ClientSecret    string            `json:"client_secret"`
-	BaseURI         string            `json:"base_uri"`
 	CertificateFile string            `json:"cert"`
 	KeyFile         string            `json:"key"`
 	LogLevel        logutils.LogLevel `json:"log_level"`
@@ -24,6 +23,7 @@ const (
 	SandboxServer = "https://sandbox.dev.clover.com"
 	ProductionServer = "https://www.clover.com"
 	TokenEndpoint = "/oauth/token"
+	Port = "5009"
 )
 
 func TokenURL() string {
@@ -43,23 +43,22 @@ func LoadConfig() {
 		log.Print("[DEBUG] No config file specified, reading environment variables.")
 
 		if os.Getenv("ENV") != "" {
-			baseURI = os.Getenv("ENV")
+			config.Env = os.Getenv("ENV")
 		}
 		
-		if os.Getenv("BASE_URI") != "" {
-			baseURI = os.Getenv("BASE_URI")
-		}
-		// if os.Getenv("CERTIFICATE") != "" {
-		// 	certificate = os.Getenv("CERTIFICATE")
-		// }
-		// if os.Getenv("KEY") != "" {
-		// 	key = os.Getenv("KEY")
-		// }
 		if os.Getenv("PORT") != "" {
-			port = os.Getenv("PORT")
+			config.Port = os.Getenv("PORT")
+		} else {
+			config.Port = Port
 		}
-		config.ClientID = os.Getenv("CLOVER_ID")
-		config.ClientSecret = os.Getenv("CLOVER_SECRET")
+		config.ClientID = os.Getenv("CLIENT_ID")
+		config.ClientSecret = os.Getenv("CLIENT_SECRET")
+		if os.Getenv("CERTIFICATE") != "" {
+			config.CertificateFile = os.Getenv("CERTIFICATE")
+		}
+		if os.Getenv("KEY") != "" {
+			config.KeyFile = os.Getenv("KEY")
+		}
 
 	} else {
 		defer conf.Close()
@@ -71,21 +70,6 @@ func LoadConfig() {
 		}
 		if config.LogLevel != "" {
 			logFilter.SetMinLevel(config.LogLevel)
-		}
-		if config.Env != "" {
-			env = config.Env
-		}
-		if config.BaseURI != "" {
-			baseURI = config.BaseURI
-		}
-		// if config.CertificateFile != "" {
-		// 	certificate = config.CertificateFile
-		// }
-		// if config.KeyFile != "" {
-		// 	key = config.KeyFile
-		// }
-		if config.Port != "" {
-			port = config.Port
 		}
 	}
 }

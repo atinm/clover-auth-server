@@ -12,11 +12,6 @@ import (
 
 var (
 	config Config
-	baseURI = "https://localhost"
-	env = "sandbox" // sandbox or production
-	//certificate     = "cert.pem"
-	//key             = "key.pem"
-	port            = "5009"
 	logFilter       *logutils.LevelFilter
 )
 
@@ -63,7 +58,7 @@ func main() {
 
 	router.HandleFunc("/token", fetchTokenReq).Methods("GET")
 
-	log.Printf("[DEBUG] listening on %s, with internal port %s", baseURI+"/token", port)
+	log.Printf("[DEBUG] listening on %s, with internal port %s","/token", config.Port)
 	//log.Fatal(http.ListenAndServeTLS(":"+port, certificate, key, router))
-	log.Fatal(http.ListenAndServe(":"+port, router))
+	log.Fatal(http.ListenAndServe(":"+config.Port, router))
 }
